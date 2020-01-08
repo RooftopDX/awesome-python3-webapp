@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# Python 3.5开始引入了新的语法async和await
+# async 代替 @asyncio.coroutine
+# await 代替 yield from
 
 import asyncio, logging
 
@@ -101,7 +104,12 @@ class TextField(Field):
 
 class ModelMetaclass(type):
 
+
     def __new__(cls, name, bases, attrs):
+        #__new__至少要有一个参数cls，代表要实例化的类
+        #__new__必须要有返回值，返回实例化出来的实例
+        #将类比作制造商，__new__方法就是前期的原材料购买环节，__init__方法就是在有原材料的基础上，加工，初始化商品环节
+
         if name=='Model':
             return type.__new__(cls, name, bases, attrs)
         tableName = attrs.get('__table__', None) or name
